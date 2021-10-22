@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NasaApp">
         <activity
-            android:name=".ui.main.MainActivity1"
-            android:exported="true" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

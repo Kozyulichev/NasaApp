@@ -31,21 +31,21 @@
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.getDate(viewModel.twoDaysAgo)}"
+                    android:onClick="@{()->viewModel.getNewDataByDay(viewModel.twoDaysAgo)}"
                     android:text="3 дня назад" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.getDate(viewModel.oneDayAgo)}"
+                    android:onClick="@{()->viewModel.getNewDataByDay(viewModel.oneDayAgo)}"
                     android:text="2 дня назад" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.getDate(viewModel.yesterday)}"
+                    android:onClick="@{()->viewModel.getNewDataByDay(viewModel.yesterday)}"
                     android:text="Вчера" />
 
                 <com.google.android.material.chip.Chip
@@ -56,6 +56,7 @@
                     android:text="Сегодня" />
 
             </com.google.android.material.chip.ChipGroup>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -97,6 +98,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:src="@drawable/ic_launcher_background" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.date12}"
+                app:layout_constraintTop_toBottomOf="@id/image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.example.nasaapp.R
@@ -13,6 +14,9 @@ import com.example.nasaapp.repository.RepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.internal.format
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainFragment : Fragment() {
 
@@ -42,6 +46,7 @@ class MainFragment : Fragment() {
             val explanationBottomSheet = ExplanationBottomSheet()
             explanationBottomSheet.arguments = bundle
             explanationBottomSheet.show(childFragmentManager, ExplanationBottomSheet.BUNDLE_EXTRA1)
+
         }
 
         binding.textInputLayout.setEndIconOnClickListener {
@@ -61,19 +66,31 @@ class MainViewModel : ViewModel() {
     var nasaApi: MutableLiveData<NasaDTO> = MutableLiveData()
     private val repository = RepositoryImpl()
     var wikiText: String? = null
-    val twoDaysAgo = "2020-02-01"
-    val oneDayAgo = "2021-02-01"
-    val yesterday = "2020-06-01"
+    var date12: MutableLiveData<String> = MutableLiveData()
+    val todayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    val twoDaysAgo get() = getDate(3)
+    val oneDayAgo get() = getDate(2)
+    val yesterday get() = getDate(1)
 
     init {
         loadApi()
     }
 
-    fun loadApi() {
-        scope.launch { nasaApi.value = repository.getApi() }
+    fun getDate(daysMinus: Int): String {
+        val calendar = Calendar.getInstance()
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        calendar.time = simpleDateFormat.parse(todayDate)
+        calendar.add(Calendar.DATE, -daysMinus)
+        date12.value = simpleDateFormat.format(calendar.time)
+        return simpleDateFormat.format(calendar.time)
     }
 
-    fun getDate(string: String) {
+    fun loadApi() {
+        scope.launch { nasaApi.value = repository.getApi() }
+        date12.value = todayDate
+    }
+
+    fun getNewDataByDay(string: String) {
         scope.launch {
             nasaApi.value = repository.getDateFromDate(string)
         }
