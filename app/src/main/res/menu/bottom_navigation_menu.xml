@@ -12,4 +12,11 @@
         android:icon="@drawable/ic_baseline_insert_emoticon_24"
         android:title="Something" />
 
+    <item
+        android:id="@+id/navigation_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Settings" />
+
+
 </menu>

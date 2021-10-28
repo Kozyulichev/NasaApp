@@ -8,6 +8,7 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.databinding.WikiBottomSheetFragmentBinding
+import com.example.nasaapp.repository.RepositoryImpl
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -41,6 +42,7 @@ class WikiBottomSheet : BottomSheetDialogFragment() {
         if (param1 != null) {
             webView.loadUrl("https://ru.wikipedia.org/wiki/$param1")
         } else webView.loadUrl("https://ru.wikipedia.org/wiki/")
+
 
     }
 

@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.databinding.ExplanationBottomSheetBinding
-import com.example.nasaapp.entities.NasaDTO
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ExplanationBottomSheet() : BottomSheetDialogFragment() {
 
     private lateinit var binding: ExplanationBottomSheetBinding
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    private val viewModel: ExplanationBottomSheetViewModel by lazy {
+        ViewModelProvider(this).get(ExplanationBottomSheetViewModel::class.java)
     }
 
     private var param1: String? = null
@@ -34,12 +34,9 @@ class ExplanationBottomSheet() : BottomSheetDialogFragment() {
     ): View {
         binding =
             ExplanationBottomSheetBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        viewModel.explanationText.value = param1
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.bottomSheetDescriptionHeader.text = param1
     }
 
     companion object {
@@ -52,4 +49,9 @@ class ExplanationBottomSheet() : BottomSheetDialogFragment() {
             return fragment
         }
     }
+}
+
+class ExplanationBottomSheetViewModel : ViewModel() {
+
+    val explanationText: MutableLiveData<String> = MutableLiveData()
 }
