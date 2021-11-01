@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.databinding.WikiBottomSheetFragmentBinding
-import com.example.nasaapp.repository.RepositoryImpl
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class WikiBottomSheet : BottomSheetDialogFragment() {
+class WikiFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: WikiBottomSheetFragmentBinding
 
@@ -50,8 +47,8 @@ class WikiBottomSheet : BottomSheetDialogFragment() {
         const val BUNDLE_EXTRA = "wiki"
 
         @JvmStatic
-        fun newInstance(param1: Bundle): WikiBottomSheet {
-            var fragment = WikiBottomSheet()
+        fun newInstance(param1: Bundle): WikiFragment {
+            val fragment = WikiFragment()
             fragment.arguments = param1
             return fragment
         }

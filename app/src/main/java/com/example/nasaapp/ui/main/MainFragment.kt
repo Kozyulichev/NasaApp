@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.nasaapp.R
 import com.example.nasaapp.databinding.MainFragmentBinding
 import com.example.nasaapp.entities.NasaDTO
 import com.example.nasaapp.navigateToNextFragment
@@ -53,8 +51,8 @@ class MainFragment : Fragment() {
 
         binding.textInputLayout.setEndIconOnClickListener {
             val bundle = Bundle()
-            bundle.putString(WikiBottomSheet.BUNDLE_EXTRA, viewModel.wikiText)
-            parentFragmentManager.navigateToNextFragment(WikiBottomSheet.newInstance(bundle))
+            bundle.putString(WikiFragment.BUNDLE_EXTRA, viewModel.wikiText)
+            parentFragmentManager.navigateToNextFragment(WikiFragment.newInstance(bundle))
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.nasaapp.repository
 
+import android.media.Image
 import com.example.nasaapp.entities.NasaDTO
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,6 +14,7 @@ interface Repository {
 
     suspend fun getApi(): NasaDTO
     suspend fun getDateFromDate(date: String): NasaDTO
+    suspend fun getEarthPhoto(lon: String, lat: String, date: String):Image
 }
 
 class RepositoryImpl : Repository {
@@ -33,5 +35,9 @@ class RepositoryImpl : Repository {
 
     override suspend fun getDateFromDate(date: String): NasaDTO {
         return nasaApi.getDataFromDate(date, TOKEN)
+    }
+
+    override suspend fun getEarthPhoto(lon: String, lat: String, date: String):Image{
+        return nasaApi.getEarthPhoto(lon, lat, date, TOKEN)
     }
 }

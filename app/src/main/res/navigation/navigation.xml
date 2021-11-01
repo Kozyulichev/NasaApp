@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.nasaapp.ui.main.WikiBottomSheet"
+        android:name="com.example.nasaapp.ui.main.WikiFragment"
         android:label="Something"
         tools:layout="@layout/wiki_bottom_sheet_fragment" />
 

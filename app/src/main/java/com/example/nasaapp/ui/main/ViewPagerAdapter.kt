@@ -8,7 +8,7 @@ class ViewPagerAdapter(private val fragmentManager: FragmentManager) :
     FragmentStatePagerAdapter(fragmentManager) {
 
 
-    private val fragments = arrayOf(MainFragment(), WikiBottomSheet(),EarthPhotoFragment())
+    private val fragments = arrayOf(MainFragment(), WikiFragment(),EarthPhotoFragment())
 
     override fun getCount(): Int {
         return fragments.size

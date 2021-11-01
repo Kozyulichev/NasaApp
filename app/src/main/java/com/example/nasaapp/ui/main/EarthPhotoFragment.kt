@@ -9,8 +9,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.databinding.FragmentEarthPhotoBinding
+import com.example.nasaapp.repository.RepositoryImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class EarthPhotoFragment : Fragment() {
 
@@ -19,6 +24,8 @@ class EarthPhotoFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentEarthPhotoBinding
+    val scope = CoroutineScope(Dispatchers.Main)
+    var uri: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,22 +39,30 @@ class EarthPhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
-
-
+//        55.891597, 37.724968
+//       binding.button.setOnClickListener {
+//  }
     }
 }
 
 class EarthPhotoFragmentViewModel : ViewModel() {
-//var earthPhoto:MutableLiveData
-    val ssss = "https://api.nasa.gov/planetary/earth/imagery?lon=100.75&lat=1.5&date=2014-02-01&api_key=g4VGTPUodvUyso8c6hpNzGrEoZ6gd0G1olr4MfXM"
-    var image:MutableLiveData<String> = MutableLiveData()
+    var image: MutableLiveData<String> = MutableLiveData("https://api.nasa.gov/planetary/earth/imagery?lon=37.724968&lat=55.724968&date=2020-07-01&&dim=0.5&api_key=g4VGTPUodvUyso8c6hpNzGrEoZ6gd0G1olr4MfXM")
     val todayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-    var lat:MutableLiveData<String> = MutableLiveData()
-    var lon:MutableLiveData<String> = MutableLiveData()
+    var loading:MutableLiveData<Boolean> = MutableLiveData(true)
+    var lat: String? = null
+    var lon: String? = null
+    private val repository = RepositoryImpl()
+    val scope = CoroutineScope(Dispatchers.Main)
 
-    fun getEarthPhoto(){
-        if (lat.value!=null && lon.value!=null){
-            image.value = "https://api.nasa.gov/planetary/earth/imagery?lon=$lon&lat=$lat&date=$todayDate&api_key=g4VGTPUodvUyso8c6hpNzGrEoZ6gd0G1olr4MfXM"
+    fun getEarthPhoto() {
+        scope.launch {
+            if (lat != null && lon != null) {
+                loading.value = true
+                val string =
+                    "https://api.nasa.gov/planetary/earth/imagery?lon=$lat&lat=$lon&date=2014-02-01&&dim=0.5&api_key=g4VGTPUodvUyso8c6hpNzGrEoZ6gd0G1olr4MfXM"
+                image.value = string
+                loading.value = false
+            }
         }
     }
 }
